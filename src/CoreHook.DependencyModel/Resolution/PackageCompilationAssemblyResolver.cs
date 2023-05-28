@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.DependencyModel.Resolution;
@@ -34,10 +35,8 @@ namespace CoreHook.DependencyModel.Resolution
             _fileSystem = fileSystem;
             _nugetPackageDirectories = nugetPackageDirectories;
         }
-        private static string[] GetDefaultProbeDirectories(IEnvironment environment) =>
-                GetDefaultProbeDirectories(RuntimeEnvironment.OperatingSystemPlatform, environment);
 
-        internal static string[] GetDefaultProbeDirectories(Platform osPlatform, IEnvironment environment)
+        internal static string[] GetDefaultProbeDirectories(IEnvironment environment)
         {
 #if !NETSTANDARD1_3            
 #if NETSTANDARD1_6
@@ -62,7 +61,7 @@ namespace CoreHook.DependencyModel.Resolution
             }
 
             string basePath;
-            if (osPlatform == Platform.Windows)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 basePath = environment.GetEnvironmentVariable("USERPROFILE");
             }

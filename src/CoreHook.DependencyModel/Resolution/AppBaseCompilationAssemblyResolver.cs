@@ -25,7 +25,7 @@ namespace CoreHook.DependencyModel.Resolution{
         }
 
         internal AppBaseCompilationAssemblyResolver(IFileSystem fileSystem)
-            : this(fileSystem, ApplicationEnvironment.ApplicationBasePath, DependencyContextPaths.Current)
+            : this(fileSystem, AppContext.BaseDirectory, DependencyContextPaths.Current)
         {
         }
 
